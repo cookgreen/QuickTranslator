@@ -14,7 +14,7 @@ const config = {
     
     // API endpoint for DeepSeek translation service
     // This should match the official DeepSeek translation API endpoint
-    apiEndpoint: 'https://api.deepseek.com/v1/translate',
+    apiEndpoint: 'https://api.deepseek.com/chat/completions',
     
     // Default request timeout in milliseconds (30 seconds)
     timeout: 30000,

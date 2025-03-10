@@ -9,7 +9,9 @@ You can apply a DeepSeek API on https://platform.deepseek.com
 ## Run
 Run `run.bat` in the directory, make sure you have install the python  
   
-Another option is run `app.exe` to open the application  
+Another option is run `compile_run.bat` or `app.exe` directly to open the application  
+
+(Make sure you have install the G++, you can download from here: https://github.com/niXman/mingw-builds-binaries/releases)
 
 ## License
 GNU GPLv3  

@@ -22,6 +22,8 @@ const DeepSeekAPI = {
         if (config.apiKey === 'YOUR_DEEPSEEK_API_KEY') {
             throw new Error('Please configure your DeepSeek API key in config.js');
         }
+        
+        text = text.replace(/\r\n/g," ").replace(/\n/g, " ");
 
         // Prepare request data
         const requestData = {
@@ -86,14 +88,18 @@ const DeepSeekAPI = {
                     throw new Error(errorData.message || `API request failed with status ${response.status}`);
                 }
 
+                var promised_response = response.json();
+
                 // Parse response
-                const data = await response.json();
+                const data = await promised_response.then(deepseek_ret => {
+                    return deepseek_ret;
+                });
                 
                 if (config.debug) {
                     console.log('DeepSeek API Response:', data);
                 }
 
-                return data.translated_text || '';
+                return data.choices[0].message.content || '';
             } catch (error) {
                 lastError = error;
                 

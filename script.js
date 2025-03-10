@@ -115,9 +115,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // In a real implementation, you would send the subtitles to DeepSeek API
         // For this demo, we'll simulate translation with a timeout
-        setTimeout(() => {
+        setTimeout(async() => {
             const translatedSubtitles = translateSubtitles(subtitles, sourceLanguage.value, targetLanguage.value);
-            const translatedSRT = generateSRT(translatedSubtitles);
+            const translatedSRT = await generateSRT(translatedSubtitles).then((translated_srt) => translated_srt);
             targetTextArea.value = translatedSRT;
             
             // Reset button state
@@ -215,12 +215,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Generate SRT content from subtitles
-    function generateSRT(subtitles) {
+    async function generateSRT(subtitles) {
         console.log(subtitles)
 
-        return subtitles.map((subtitle) => {
-            return `${subtitle.index}\n${subtitle.timecode}\n${subtitle.text}`;
-        }).join('\n\n');
+        return await subtitles
+          .then((translated_subtitles) => 
+            {
+                translated_subtitles = translated_subtitles.map(subtitle => {
+                    return `${subtitle.index}\n${subtitle.timecode}\n${subtitle.text}\n`;
+                }).join('\n\n');
+
+                console.log(translated_subtitles);
+
+                return translated_subtitles;
+            }
+        )
     }
 });
 

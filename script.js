@@ -188,11 +188,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Translation function using DeepSeek API
     async function translateSubtitles(subtitles, sourceLang, targetLang) {
         try {
-            // Import the DeepSeek API service
+
             const DeepSeekAPI = await import('./api.js').then(module => module.default);
             
             // Extract text content from subtitles
-            const textsToTranslate = subtitles.map(subtitle => subtitle.text);
+            const textsToTranslate = subtitles.map((subtitle) => subtitle.text);
             
             // Translate all subtitle texts in batch
             const translatedTexts = await DeepSeekAPI.translateBatch(textsToTranslate, sourceLang, targetLang);
@@ -216,7 +216,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Generate SRT content from subtitles
     function generateSRT(subtitles) {
-        return subtitles.map(subtitle => {
+        console.log(subtitles)
+
+        return subtitles.map((subtitle) => {
             return `${subtitle.index}\n${subtitle.timecode}\n${subtitle.text}`;
         }).join('\n\n');
     }
